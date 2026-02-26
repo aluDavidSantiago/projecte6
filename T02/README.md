@@ -1,58 +1,82 @@
-# projecte Nexus
+# **T02: Missió Apache — Desplegament Multidomini i Segur**
 
-## Desplegament integral d'infraestructura segura per a entorns d'e-learning
+## **Breu descripció**
 
-![Logo del projecte Nexus](pics/logotip.png)
+Les prediccions dels assessors de la incubadora s’han confirmat! Ja teniu un primer client amb un encàrrec relacionat amb la infraestructura web.
 
-## Autor
+Nexus és una nova empresa de formació a Mataró, que ha contactat amb nosaltres per al desplegament i gestió de la seva infraestructura web. En aquesta fase inicial, l'objectiu és establir una base sòlida i segura per als seus serveis corporatius abans de migrar definitivament al núvol.
 
-Nom: [Escriu el teu nom aquí]
+Els requisits del client són clars i directes:
 
-Formant grups de treball: [Escriu els noms dels membres del grup aquí]
+- Allotjar **dos portals web diferenciats** (un per l'agència de disseny i un altre per a l'acadèmia de formació) en un únic servidor per optimitzar recursos.
+- Garantir la **màxima seguretat** en les comunicacions mitjançant xifratge **SSL/TLS**.
+- Assegurar un **rendiment òptim** utilitzant protocols de transferència moderns.
+- Configurar el servidor web **Apache sobre Ubuntu Server** amb rigor professional.
 
-## Descripció del projecte
+---
 
-Projecte Nexus vol posar en marxa una plataforma de formació E-learning pròpia, orientada a cursos per a tècnics informàtics i demana que aquesta plataforma es construeixi sobre una infraestructura de servidor eficient, sostenible i amb costos controlats.
+## **Descripció de l’encàrrec**
 
-Per aquest motiu, Projecte Nexus encarrega al vostre equip tècnic (vosaltres) l’estudi, desplegament i presentació d’una solució completa de servidor, adequada a les necessitats del client i al context real d’una petita o mitjana organització.
+Abans del desplegament en un VPS, el projecte es desenvoluparà en una màquina virtual local. Un cop superades les proves de funcionament i amb el vistiplau del client, es desplegarà a l’entorn d’Internet.
 
-Al següent enllaç pots trobar l'enunciat complet del projecte [accés al projecte Nexus]()
+Les accions a realitzar consisteixen en la instal·lació, configuració de dominis virtuals i securització avançada d'un servidor web Apache. Tot el procés s’ha de documentar en un informe tècnic.
 
-## Instruccions (per eliminar abans de lliurar el projecte)
+---
 
-Un cop teniu la vostra còpia d'aquest repositori, heu de seguir els passos següents:
+## **Tasques específiques a realitzar**
 
-1. **Editar aquest fitxer README.md**
-    - Incloure el vostre nom i els noms dels membres del grup.
+### **1. Instal·lació i Configuració Base**
 
-1. **Organització del repositori:**
-   - Cada activitat ha d'estar dins d'una carpeta titulada `Tasca01`, `Tasca02`, etc.
-   - Dins de cada carpeta de tasca, heu d'incloure un arxiu `README.md` amb la descripció detallada de l'activitat realitzada.
+- Instal·leu el servidor web Apache sobre la màquina virtual Ubuntu Server.
+- Verifiqueu el funcionament del servei utilitzant la comanda `apachectl` per comprovar l'estat.
+- Assegureu-vos que l'usuari `www-data` s'ha creat correctament i verifiqueu els permisos de la carpeta `/var/www`.
 
-```text
+---
 
-projecte6/
-├── README.md (aquest arxiu)
-├── Tasca01/
-│   └── README.md
-├── Tasca02/
-│   └── README.md
-├── Tasca03/
-│   └── README.md
-└── ...
-```
+### **2. Desplegament de VirtualHosts (Multidomini)**
 
-1. **Procediment de treball:**
-   - A mesura que completeu cada tasca, actualitzeu el vostre repositori local amb els canvis.
-   - Cada dia, abans de finalitzar la jornada, pugeu els canvis al  repositori remot a GitHub.
+- El client té dos dominis:
+  - `projectenexus.test` (Site 1)
+  - `academia.test` (Site 2)
+- Creeu l'estructura de directoris necessària a `/var/www/` per allotjar ambdós llocs de manera organitzada.
+- Configureu dos VirtualHosts a `/etc/apache2/sites-available/` fent servir com a base l'arxiu de configuració per defecte.
+- Activeu els llocs amb la comanda `a2ensite` i modifiqueu l'arxiu `hosts` per simular la resolució de noms (DNS) i que els dominis responguin correctament.
 
-1. **Esborrar secció instruccions:**
-    - Un cop hàgiu completat la creació de les carpetes i actualitzat el vostre README.md, ja podeu eliminar aquesta secció d'instruccions per a una millor presentació del vostre projecte.
+---
 
-## Guies Git i GitHub
+### **3. Personalització d'Errors**
 
-- [Introducció a Git i GitHub](https://github.com/SMX2n/IntroGitHub)
-- [Control de versions: Git](https://github.com/SMX2n/ControlVersions)
-- [Guia GitHub Classroom](https://github.com/SMX2n/guia-github-classroom)
+Configureu una pàgina d'error personalitzada per al codi **404 (Not Found)** per a, com a mínim, un dels VirtualHosts. El missatge ha de ser corporatiu i professional, evitant la pàgina per defecte del servidor.
 
-Bona sort! 🚀
+---
+
+### **4. Seguretat i Certificats (HTTPS)**
+
+- Habiliteu el mòdul **SSL** a Apache.
+- Genereu un **certificat autosignat** per als dos dominis `projectenexus.test` i `academia.test` utilitzant `openssl`.  
+  - Validesa: **365 dies**  
+  - Clau RSA: **2048 bits**
+- Configureu els VirtualHosts segurs (port **443**) apuntant a les claus generades.
+- Configureu una **redirecció forçada** perquè qualsevol petició HTTP (port 80) a `projectenexus.test` i `academia.test` es redirigeixi automàticament a HTTPS (port 443).
+
+---
+
+### **5. Optimització amb HTTP/2**
+
+- Habiliteu el protocol **HTTP/2** per millorar la latència i la velocitat de càrrega de la web segura.
+- Configureu la directiva `Protocols` dins dels VirtualHosts corresponents.
+- Demostreu tècnicament que el protocol està actiu utilitzant la comanda `curl` o inspeccionant la xarxa amb el navegador.
+
+---
+
+## **Què cal lliurar**
+
+Cal redactar una **memòria tècnica** de la instal·lació i configuració, incloent les proves de funcionament.  
+Aquesta memòria ha de contenir explicacions clares i no només captures de pantalla, ja que els clients no són experts i necessiten entendre el que s’ha fet.
+
+---
+
+## **Material de suport**
+
+- **UD5.AA2. El servidor Apache** — Disponible al Moodle del mòdul de Serveis de Xarxa.
+
