@@ -1,58 +1,60 @@
-# projecte Nexus
 
-## Desplegament integral d'infraestructura segura per a entorns d'e-learning
+# Informe Tècnic – Protecció de la Informació per a Projecte Nexus
 
-![Logo del projecte Nexus](pics/logotip.png)
+## 1. Justificació Teòrica  
+El **xifratge** és un procés reversible que transforma informació llegible en dades inintel·ligibles utilitzant una clau secreta. Només qui disposa de la contrasenya pot recuperar el contingut original. El seu objectiu principal és garantir la **confidencialitat**.  
+Una **funció hash**, en canvi, és un procés **no reversible** que genera una empremta digital única d’un fitxer. Si el fitxer es modifica mínimament, el hash resultant canvia completament. El seu propòsit és assegurar la **integritat**, no pas amagar informació.
 
-## Autor
+---
 
-Nom: [Escriu el teu nom aquí]
+## 2. Evidències Tasca 1 – Xifratge amb VeraCrypt
 
-Formant grups de treball: [Escriu els noms dels membres del grup aquí]
+### 2.1 Configuració del volum xifrat  
+*Captura de pantalla de la configuració del volum (AES-256, mida 100MB).*
 
-## Descripció del projecte
+### 2.2 Unitat muntada amb el fitxer secret  
+*Captura mostrant la unitat virtual muntada i el fitxer `EXAMEN_FINAL_SEGURETAT.txt` a l’interior.*
 
-Projecte Nexus vol posar en marxa una plataforma de formació E-learning pròpia, orientada a cursos per a tècnics informàtics i demana que aquesta plataforma es construeixi sobre una infraestructura de servidor eficient, sostenible i amb costos controlats.
+### 2.3 Procés d’accés al fitxer  
+*Captures que mostren:*
+- Intent d’obrir el volum sense contrasenya (accés denegat).  
+- Introducció de la contrasenya robusta.  
+- Accés correcte al contingut un cop muntat.
 
-Per aquest motiu, Projecte Nexus encarrega al vostre equip tècnic (vosaltres) l’estudi, desplegament i presentació d’una solució completa de servidor, adequada a les necessitats del client i al context real d’una petita o mitjana organització.
+---
 
-Al següent enllaç pots trobar l'enunciat complet del projecte [accés al projecte Nexus]()
+## 3. Evidències Tasca 2 – Verificació d’Integritat (Hashing)
 
-## Instruccions (per eliminar abans de lliurar el projecte)
-
-Un cop teniu la vostra còpia d'aquest repositori, heu de seguir els passos següents:
-
-1. **Editar aquest fitxer README.md**
-    - Incloure el vostre nom i els noms dels membres del grup.
-
-1. **Organització del repositori:**
-   - Cada activitat ha d'estar dins d'una carpeta titulada `Tasca01`, `Tasca02`, etc.
-   - Dins de cada carpeta de tasca, heu d'incloure un arxiu `README.md` amb la descripció detallada de l'activitat realitzada.
-
-```text
-
-projecte6/
-├── README.md (aquest arxiu)
-├── Tasca01/
-│   └── README.md
-├── Tasca02/
-│   └── README.md
-├── Tasca03/
-│   └── README.md
-└── ...
+### 3.1 Hash original  
+Fitxer: `nota_final_curs.txt`  
+Contingut:  
+```
+L'alumne ha aprovat amb un 5
 ```
 
-1. **Procediment de treball:**
-   - A mesura que completeu cada tasca, actualitzeu el vostre repositori local amb els canvis.
-   - Cada dia, abans de finalitzar la jornada, pugeu els canvis al  repositori remot a GitHub.
+Comanda utilitzada (exemple Linux):  
+```
+sha256sum nota_final_curs.txt
+```
 
-1. **Esborrar secció instruccions:**
-    - Un cop hàgiu completat la creació de les carpetes i actualitzat el vostre README.md, ja podeu eliminar aquesta secció d'instruccions per a una millor presentació del vostre projecte.
+*Captura mostrant el hash SHA-256 original.*
 
-## Guies Git i GitHub
+### 3.2 Hash després de modificar el fitxer  
+Nou contingut:  
+```
+L'alumne ha aprovat amb un 9
+```
 
-- [Introducció a Git i GitHub](https://github.com/SMX2n/IntroGitHub)
-- [Control de versions: Git](https://github.com/SMX2n/ControlVersions)
-- [Guia GitHub Classroom](https://github.com/SMX2n/guia-github-classroom)
+Comanda:  
+```
+sha256sum nota_final_curs.txt
+```
 
-Bona sort! 🚀
+*Captura mostrant el nou hash, completament diferent de l’original.*
+
+---
+
+## 4. Conclusió  
+Per a Nexus és essencial protegir la informació sensible, especialment quan es transporta en dispositius físics. L’ús de contenidors xifrats garanteix que, en cas de pèrdua o robatori, les dades continuïn protegides. Igualment important és utilitzar **contrasenyes robustes**, difícils d’endevinar i emmagatzemades de manera segura.  
+D’altra banda, l’ús de funcions **hash** permet verificar que documents crítics —com actes de notes, exàmens o contractes— no han estat manipulats. La combinació de xifratge i hashing reforça la confidencialitat i la integritat de tota la informació acadèmica gestionada per Nexus.
+```
