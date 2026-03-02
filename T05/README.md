@@ -57,4 +57,4 @@ sha256sum nota_final_curs.txt
 ## 4. Conclusió  
 Per a Nexus és essencial protegir la informació sensible, especialment quan es transporta en dispositius físics. L’ús de contenidors xifrats garanteix que, en cas de pèrdua o robatori, les dades continuïn protegides. Igualment important és utilitzar **contrasenyes robustes**, difícils d’endevinar i emmagatzemades de manera segura.  
 D’altra banda, l’ús de funcions **hash** permet verificar que documents crítics —com actes de notes, exàmens o contractes— no han estat manipulats. La combinació de xifratge i hashing reforça la confidencialitat i la integritat de tota la informació acadèmica gestionada per Nexus.
-```
+
