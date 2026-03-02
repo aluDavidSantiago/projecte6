@@ -1,58 +1,71 @@
-# projecte Nexus
+## T06: Projecte Nexus — Implantació de PKI i Signatura Digital Corporativa
 
-## Desplegament integral d'infraestructura segura per a entorns d'e-learning
+### Breu descripció
+Projecte Nexus necessita garantir **integritat**, **autenticitat** i **no repudi** dels seus documents interns i contractes. Fins ara utilitzaven signatures en paper, però volen modernitzar el procés mitjançant una infraestructura pròpia de certificació digital.
 
-![Logo del projecte Nexus](pics/logotip.png)
+L’objectiu és crear una **Prova de Concepte (PoC)** que permeti desplegar una **PKI corporativa**, emetre certificats digitals per als empleats i signar documents PDF de manera oficial sense dependre de tercers.
 
-## Autor
+---
 
-Nom: [Escriu el teu nom aquí]
+## Introducció
+Després de resoldre els problemes de confidencialitat, Nexus ha detectat la necessitat d’assegurar que els documents siguin fiables i verificables. Per això, volen implementar:
 
-Formant grups de treball: [Escriu els noms dels membres del grup aquí]
+- Una **Autoritat de Certificació (CA)** pròpia.
+- Certificats digitals corporatius per als empleats.
+- Un sistema de **signatura digital** per a documents PDF.
 
-## Descripció del projecte
+Aquesta PoC demostrarà que és possible gestionar tot el procés internament.
 
-Projecte Nexus vol posar en marxa una plataforma de formació E-learning pròpia, orientada a cursos per a tècnics informàtics i demana que aquesta plataforma es construeixi sobre una infraestructura de servidor eficient, sostenible i amb costos controlats.
+---
 
-Per aquest motiu, Projecte Nexus encarrega al vostre equip tècnic (vosaltres) l’estudi, desplegament i presentació d’una solució completa de servidor, adequada a les necessitats del client i al context real d’una petita o mitjana organització.
+## Descripció de l’activitat
+L’activitat es divideix en **tres fases principals** i es realitza en parelles:
 
-Al següent enllaç pots trobar l'enunciat complet del projecte [accés al projecte Nexus]()
+- **Administrador de Nexus**: gestiona el servidor i la CA.
+- **Treballador de Nexus**: actua com a client que sol·licita i utilitza el certificat.
 
-## Instruccions (per eliminar abans de lliurar el projecte)
+### Fase 1: Desplegament de la CA a Ubuntu Server
+- Instal·lació i configuració de l’Autoritat de Certificació.
+- Generació de la clau privada i certificat arrel.
+- Configuració de rutes, permisos i polítiques.
 
-Un cop teniu la vostra còpia d'aquest repositori, heu de seguir els passos següents:
+### Fase 2: Sol·licitud i Emissió de Certificats pel client
+- Creació d’una CSR (Certificate Signing Request).
+- Enviament i aprovació de la sol·licitud.
+- Emissió del certificat client.
+- Instal·lació del certificat i de la clau pública de la CA al client.
 
-1. **Editar aquest fitxer README.md**
-    - Incloure el vostre nom i els noms dels membres del grup.
+### Fase 3: Signatura Digital i Verificació (Acrobat Reader)
+- Signatura d’un document PDF amb el certificat corporatiu.
+- Validació de la signatura i comprovació de la cadena de confiança.
 
-1. **Organització del repositori:**
-   - Cada activitat ha d'estar dins d'una carpeta titulada `Tasca01`, `Tasca02`, etc.
-   - Dins de cada carpeta de tasca, heu d'incloure un arxiu `README.md` amb la descripció detallada de l'activitat realitzada.
+---
 
-```text
+## Què cal lliurar
 
-projecte6/
-├── README.md (aquest arxiu)
-├── Tasca01/
-│   └── README.md
-├── Tasca02/
-│   └── README.md
-├── Tasca03/
-│   └── README.md
-└── ...
-```
+### Memòria tècnica (memoria.md)
+En format **Markdown**, incloent:
 
-1. **Procediment de treball:**
-   - A mesura que completeu cada tasca, actualitzeu el vostre repositori local amb els canvis.
-   - Cada dia, abans de finalitzar la jornada, pugeu els canvis al  repositori remot a GitHub.
+- Captures de pantalla comentades del procés d’instal·lació de la CA a Ubuntu Server.
+- Documentació del procediment de sol·licitud del certificat client.
+- Procediment de creació del certificat client.
+- Instal·lació de la clau pública de la CA al client.
+- Instal·lació del certificat client.
+- Procediment de signatura d’un document PDF i comprovació.
+- Explicació de les diferències entre **clau pública** i **clau privada** en aquest procés.
 
-1. **Esborrar secció instruccions:**
-    - Un cop hàgiu completat la creació de les carpetes i actualitzat el vostre README.md, ja podeu eliminar aquesta secció d'instruccions per a una millor presentació del vostre projecte.
+### Evidència de la signatura
+- Un **PDF signat digitalment** per un membre del grup.
 
-## Guies Git i GitHub
+### Certificat arrel
+- El fitxer **.cer** de la CA (clau pública), per poder ser descarregat i validar signatures.
 
-- [Introducció a Git i GitHub](https://github.com/SMX2n/IntroGitHub)
-- [Control de versions: Git](https://github.com/SMX2n/ControlVersions)
-- [Guia GitHub Classroom](https://github.com/SMX2n/guia-github-classroom)
+---
 
-Bona sort! 🚀
+## Material de suport
+- Material de l’assignatura *Seguretat Informàtica — RA3: Signatura electrònica i Certificats Digitals* (Moodle).
+- Guia de l’activitat proporcionada pel professorat.
+
+---
+
+Si vols, puc ajudar-te a convertir aquest text en una plantilla de *memoria.md* llesta per omplir.
